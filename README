@@ -2,7 +2,8 @@
 VM bootstrap playbooks
 ======================
 
-These are the Ansible__ playbooks I use to bootstrap new FreeBSD VMs.
+These are the Ansible__ playbooks I use to bootstrap new FreeBSD VMs for local
+use.
 
 .. __: https://www.ansible.com/
 
@@ -15,7 +16,8 @@ characters as VM names.
 
 .. __: https://spongebob.fandom.com/wiki/Gary_the_Snail
 
-As start the VM as root and run the following::
+Out of the box, we can't SSH into the instance as root, so start the VM as
+root and run the following::
 
     sed -E -i '' 's/^#(PermitRootLogin|PasswordAuthentication).*/\1 yes/g' /etc/ssh/sshd_config
     service sshd restart
@@ -48,7 +50,7 @@ Replace `192.168.0.100` with whatever your VM's IP address is.
 
 To initially bootstrap everything, run::
 
-   make bootstrap
+   ansible-playbook -i hosts bootstrap.yml --ask-pass
 
 This will install OpenMDNS__, which will make your VM advertise itself by name
 over multicast DNS. You can now update the `hosts` file to remove the
