@@ -1,0 +1,11 @@
+---
+full_name: Keith Gaughan
+github_user: kgaughan
+key_name: id_primary
+shell: /usr/local/bin/fish
+
+dotfiles:
+  - repo: https://github.com/kgaughan/dotfiles.git
+    dest: code/dotfiles
+
+# vim:set ft=yaml:

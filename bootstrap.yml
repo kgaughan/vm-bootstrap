@@ -1,0 +1,8 @@
+---
+- hosts: bootstrap
+  remote_user: root
+  become: true
+  gather_facts: false
+
+  roles:
+    - bootstrap
