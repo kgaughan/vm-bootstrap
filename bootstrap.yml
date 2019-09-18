@@ -10,7 +10,9 @@
 
   tasks:
     - name: install python
-      raw: sh -c "ASSUME_ALWAYS_YES=yes pkg install python3"
+      raw: ASSUME_ALWAYS_YES=yes pkg install python3
+      args:
+        executable: /bin/sh
 
     - setup:
 
@@ -59,7 +61,7 @@
         state: directory
         owner: "{{ user.name }}"
         group: "{{ user.name }}"
-        mode: '700'
+        mode: "700"
 
     - name: copy up local ssh key
       copy:
@@ -86,8 +88,8 @@
       lineinfile:
         dest: /etc/ssh/sshd_config
         regexp: "^#?{{ item }}\\s"
-        line: '{{ item }} no'
-        validate: '/usr/sbin/sshd -T -f %s'
+        line: "{{ item }} no"
+        validate: "/usr/sbin/sshd -T -f %s"
       loop:
         - ChallengeResponseAuthentication
         - PasswordAuthentication
