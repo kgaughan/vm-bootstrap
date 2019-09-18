@@ -24,38 +24,15 @@ root and run the following::
 
 This allows us to bootstrap the instance as root.
 
-Take note of the VM's IP address with ``ipconfig``, and update the `hosts`
-file to something like this::
+Take note of the VM's IP address with ``ipconfig`` and run (replacing ``<ip>``
+with the VM's IP address)::
 
-   gary.local ansible_host=192.168.0.100
+   ansible-playbook -i <ip>, --extra-vars @config.yml bootstrap.yml --ask-pass
 
-   [bootstrap]
-   gary.local
-
-   [bootstrap:vars]
-   ansible_connection=paramiko
-
-   [freebsd]
-   gary.local
-
-   [freebsd:vars]
-   ansible_python_interpreter=/usr/local/bin/python3
-
-Here, I'm using `gary.local`, the mDNS__ name, as the VM will be advertised in
-the mDNS `.local` domain once mDNS is configured on it.
-
-.. __: http://www.multicastdns.org/
-
-Replace `192.168.0.100` with whatever your VM's IP address is.
-
-To initially bootstrap everything, run::
-
-   ansible-playbook -i hosts bootstrap.yml --ask-pass
-
-This will install OpenMDNS__, which will make your VM advertise itself by name
-over multicast DNS. You can now update the `hosts` file to remove the
-`ansible_host` variable.
+This will also install OpenMDNS__, which will make your VM advertise itself by
+name over `multicast DNS`__, and lock down root access to the VM again.
 
 .. __: http://www.haesbaert.org/openmdns/
+.. __: http://www.multicastdns.org/
 
 .. vim:set ft=rst:

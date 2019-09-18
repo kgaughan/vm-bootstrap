@@ -7,5 +7,3 @@ shell: /usr/local/bin/fish
 dotfiles:
   - repo: https://github.com/kgaughan/dotfiles.git
     dest: code/dotfiles
-
-# vim:set ft=yaml:
