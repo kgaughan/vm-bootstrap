@@ -10,6 +10,8 @@ use.
 Usage
 =====
 
+.. note:: Make sure you use a bridged adaptor.
+
 Spin up a minimal install of FreeBSD, creating just a root user. Give the host
 a unique name. I call mine gary__, as I like to use Spongebob Squarepants
 characters as VM names.
@@ -34,5 +36,12 @@ name over `multicast DNS`__, and lock down root access to the VM again.
 
 .. __: http://www.haesbaert.org/openmdns/
 .. __: http://www.multicastdns.org/
+
+Jails
+=====
+
+::
+
+    ansible-playbook -i gary.local, --extra-vars @config.yml jails.yml
 
 .. vim:set ft=rst:

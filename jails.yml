@@ -1,0 +1,34 @@
+---
+- hosts: all
+  remote_user: keith
+  become: true
+
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3
+
+  tasks:
+    - name: install packages
+      pkgng:
+        name:
+          - ezjail
+        cached: true
+
+    - name: add jail loopback interface
+      command: 'sysrc cloned_interfaces="lo1"'
+      changed_when: false
+
+    - name: configure jail loopback interface
+      command: service netif cloneup
+      args:
+        warn: false
+
+    - name: start ezjail
+      service:
+        name: ezjail
+        enabled: true
+        state: started
+
+    - name: initialise the base jail
+      command: ezjail-admin install
+      args:
+        creates: /usr/jails/basejail
